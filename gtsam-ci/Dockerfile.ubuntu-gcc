@@ -4,6 +4,7 @@ FROM docker.io/ubuntu:${UBUNTU_VERSION}
 ARG COMPILER_VERSION
 
 # Install dependencies
+RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|http://mirror.math.princeton.edu/pub/ubuntu/|g' /etc/apt/sources.list
 RUN apt-get -y update && apt-get -y install software-properties-common
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test -y && apt-get -y update
 RUN apt-get -y install cmake \
@@ -18,7 +19,7 @@ RUN apt-get -y install cmake \
                         g++-${COMPILER_VERSION}-multilib \
                         binutils-gold \
                         libtbb-dev \
-                        libgeographiclib-dev
+                        libgeographic-dev
 
 ENV CC="gcc-${COMPILER_VERSION}"
 ENV CXX="g++-${COMPILER_VERSION}"

@@ -15,7 +15,7 @@ RUN apt-get -y install cmake \
                         libicu-dev \
                         ninja-build \
                         libboost-all-dev \
-                        libgeographiclib-dev
+                        libgeographic-dev
 
 # Install clang
 # (ipv4|ha).pool.sks-keyservers.net is the SKS GPG global keyserver pool
