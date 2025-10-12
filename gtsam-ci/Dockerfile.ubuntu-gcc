@@ -17,7 +17,8 @@ RUN apt-get -y install cmake \
                         g++-${COMPILER_VERSION} \
                         g++-${COMPILER_VERSION}-multilib \
                         binutils-gold \
-                        libtbb-dev
+                        libtbb-dev \
+                        libgeographiclib-dev
 
 ENV CC="gcc-${COMPILER_VERSION}"
 ENV CXX="g++-${COMPILER_VERSION}"

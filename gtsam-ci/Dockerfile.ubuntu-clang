@@ -14,7 +14,8 @@ RUN apt-get -y install cmake \
                         python3-numpy \
                         libicu-dev \
                         ninja-build \
-                        libboost-all-dev
+                        libboost-all-dev \
+                        libgeographiclib-dev
 
 # Install clang
 # (ipv4|ha).pool.sks-keyservers.net is the SKS GPG global keyserver pool
