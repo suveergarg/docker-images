@@ -1,21 +1,5 @@
-ARG UBUNTU_VERSION=22.04
-FROM docker.io/ubuntu:${UBUNTU_VERSION}
-
-ARG COMPILER_VERSION
-
-# Install dependencies
-RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|http://mirror.math.princeton.edu/pub/ubuntu/|g' /etc/apt/sources.list
-RUN apt-get -y update && apt-get -y install software-properties-common
-RUN add-apt-repository ppa:ubuntu-toolchain-r/test -y && apt-get -y update
-RUN apt-get -y install cmake \
-                        build-essential \
-                        pkg-config \
-                        libpython3-dev \
-                        python3-numpy \
-                        libicu-dev \
-                        ninja-build \
-                        libboost-all-dev \
-                        libgeographic-dev
+FROM borglab/gtsam-ci:ubuntu-22.04-base
+ARG COMPILER_VERSION=11
 
 # Install clang
 # (ipv4|ha).pool.sks-keyservers.net is the SKS GPG global keyserver pool
@@ -32,8 +16,7 @@ RUN add-apt-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy main
 
 RUN apt-get update
 RUN apt-get install -y clang-${COMPILER_VERSION} \
-                        mold \
-                        libtbb-dev
+                        mold
 
 ENV CC="clang-${COMPILER_VERSION}"
 ENV CXX="clang++-${COMPILER_VERSION}"
@@ -41,11 +24,5 @@ ENV LDFLAGS="-fuse-ld=mold"
 ENV CMAKE_EXE_LINKER_FLAGS="-fuse-ld=mold"
 ENV CMAKE_SHARED_LINKER_FLAGS="-fuse-ld=mold"
 
-# Install Eigen and Metis (needed for some tests)
-RUN apt-get update && apt-get install -y libeigen3-dev libmetis-dev
-
-WORKDIR /gtsam
-
 # Build GTSAM and run tests
 ENTRYPOINT ["bash", ".github/scripts/unix.sh", "-t"]
-

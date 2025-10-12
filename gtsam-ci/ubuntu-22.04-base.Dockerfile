@@ -1,8 +1,6 @@
 ARG UBUNTU_VERSION=22.04
 FROM docker.io/ubuntu:${UBUNTU_VERSION}
 
-ARG COMPILER_VERSION
-
 # Install dependencies
 RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|http://mirror.math.princeton.edu/pub/ubuntu/|g' /etc/apt/sources.list
 RUN apt-get -y update && apt-get -y install software-properties-common
@@ -15,22 +13,10 @@ RUN apt-get -y install cmake \
                         libicu-dev \
                         ninja-build \
                         libboost-all-dev \
-                        g++-${COMPILER_VERSION} \
-                        g++-${COMPILER_VERSION}-multilib \
-                        binutils-gold \
+                        libeigen3-dev \ 
+                        libmetis-dev \
                         libtbb-dev \
                         libgeographic-dev
 
-ENV CC="gcc-${COMPILER_VERSION}"
-ENV CXX="g++-${COMPILER_VERSION}"
-ENV LDFLAGS="-fuse-ld=gold"
-ENV CMAKE_EXE_LINKER_FLAGS="-fuse-ld=gold"
-ENV CMAKE_SHARED_LINKER_FLAGS="-fuse-ld=gold"
-
-# Install Eigen and Metis (needed for some tests)
-RUN apt-get update && apt-get install -y libeigen3-dev libmetis-dev
-
 WORKDIR /gtsam
 
-# Build GTSAM and run tests
-ENTRYPOINT ["bash", ".github/scripts/unix.sh", "-t"]
