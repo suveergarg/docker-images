@@ -1,10 +1,10 @@
 # Basic Ubuntu 18.04 image with Boost and TBB installed. To be used for building further downstream packages.
 
 # Get the base Ubuntu image from Docker Hub
-FROM ubuntu:bionic
+FROM ubuntu:noble
 
 # Disable GUI prompts
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Update apps on the base image
 RUN apt-get -y update && apt-get -y install

@@ -1,7 +1,7 @@
 # Ubuntu image with GTSAM installed. Configured with  Boost and TBB support.
 
 # Get the base Ubuntu image from Docker Hub
-FROM borglab/ubuntu-boost-tbb:bionic
+FROM borglab/ubuntu-boost-tbb:latest
 
 # Install git
 RUN apt-get update && \
@@ -23,6 +23,7 @@ RUN cmake \
     -DGTSAM_BUILD_EXAMPLES_ALWAYS=OFF \
     -DGTSAM_BUILD_TIMING_ALWAYS=OFF \
     -DGTSAM_BUILD_TESTS=OFF \
+    -DGTSAM_ALLOW_DEPRECATED_SINCE_V43=OFF \
     ..
 
 # Build
