@@ -1,5 +1,4 @@
 FROM borglab/gtsam-ci:ubuntu-24.04-base
-ARG COMPILER_VERSION=16
 
 # Install clang
 # (ipv4|ha).pool.sks-keyservers.net is the SKS GPG global keyserver pool
@@ -15,11 +14,10 @@ RUN add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic ma
 RUN add-apt-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy main"
 
 RUN apt-get update
-RUN apt-get install -y clang-${COMPILER_VERSION} \
-                        mold
+RUN apt-get install -y clang-16 mold
 
-ENV CC="clang-${COMPILER_VERSION}"
-ENV CXX="clang++-${COMPILER_VERSION}"
+ENV CC="clang-16"
+ENV CXX="clang++-16"
 ENV LDFLAGS="-fuse-ld=mold"
 ENV CMAKE_EXE_LINKER_FLAGS="-fuse-ld=mold"
 ENV CMAKE_SHARED_LINKER_FLAGS="-fuse-ld=mold"

@@ -1,5 +1,4 @@
-ARG UBUNTU_VERSION=24.04
-FROM docker.io/ubuntu:${UBUNTU_VERSION}
+FROM docker.io/ubuntu:24.04
 
 # Install dependencies
 RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|http://mirror.math.princeton.edu/pub/ubuntu/|g' /etc/apt/sources.list

@@ -1,5 +1,4 @@
-ARG UBUNTU_VERSION=22.04
-FROM docker.io/ubuntu:${UBUNTU_VERSION}
+FROM docker.io/ubuntu:22.04
 
 # Install dependencies
 RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|http://mirror.math.princeton.edu/pub/ubuntu/|g' /etc/apt/sources.list
